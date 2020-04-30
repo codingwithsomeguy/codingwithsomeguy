@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>dial</title>
+</head>
+<body>
+
+<span id="knobwidget">VOL</span>
+<script>
+
+const knobWidget = document.getElementById("knobwidget");
+
+function updateKnobWidget() {
+    const req = new Request("/dial");
+    fetch(req).
+        then(r => r.text()).
+        then(dialValue => {
+            let knobText = dialValue / 10;
+            knobwidget.setAttribute("style",
+                `display:block;background-color:teal;width:${dialValue}px;`);
+            knobwidget.innerText = knobText;
+        });
+}
+
+setInterval(updateKnobWidget, 200);
+
+</script>
+</body>
+</html>
